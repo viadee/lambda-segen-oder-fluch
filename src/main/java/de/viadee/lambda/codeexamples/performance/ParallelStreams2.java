@@ -9,7 +9,7 @@ public class ParallelStreams2 {
 
 		long startSequential = System.currentTimeMillis();
 		Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-				.forEach(waitAndPrint(startSequential, "sequential"));
+				.forEach(waitAndPrint(startSequential, "Sequential"));
 
 		System.out
 				.println("==========================================================================================");
@@ -17,7 +17,7 @@ public class ParallelStreams2 {
 		long startParallel = System.currentTimeMillis();
 		Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 				.parallel()
-				.forEach(waitAndPrint(startParallel, "parallel"));
+				.forEach(waitAndPrint(startParallel, "Parallel"));
 	}
 
 	private static Consumer<? super Integer> waitAndPrint(final long startSeq, String typ) {
@@ -28,7 +28,7 @@ public class ParallelStreams2 {
 				// Nichts tun
 			}
 			System.out.println(
-					"Duration " + typ + " iteration " + x + ": Thread " + Thread.currentThread().getName()
+					typ + " iteration " + x + ": Thread " + Thread.currentThread().getName()
 							+ " finished after "
 							+ (System.currentTimeMillis() - startSeq) + "ms");
 		};
