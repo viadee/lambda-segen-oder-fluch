@@ -11,28 +11,20 @@ import java.util.stream.LongStream;
 public class ParallelStreams1 {
 
 	public static void main(String[] args) {
-		Random random = new Random();
+		ArrayList<Integer> arrayList = new ArrayList<>(generateRandomIntegers());
+		LinkedList<Integer> linkedList = new LinkedList<>(generateRandomIntegers());
 
-		List<Integer> randomIntegers = IntStream
-				.range(1, 9999999)
-				.map(random::nextInt)
-				.boxed()
-				.collect(Collectors.toList());
-
-		ArrayList<Integer> arrayList = new ArrayList<>(randomIntegers);
-		LinkedList<Integer> linkedList = new LinkedList<>(randomIntegers);
-
-		System.out.println("ArrayList parallel: " + averageParallel(arrayList) +
+		System.out.println("ArrayList parallel: " + averageSummationTimeParallel(arrayList) +
 				"ms");
-		System.out.println("LinkedList parallel: " + averageParallel(linkedList) +
+		System.out.println("LinkedList parallel: " + averageSummationTimeParallel(linkedList) +
 				"ms");
-		System.out.println("ArrayList sequential: " + averageSequential(arrayList) +
+		System.out.println("ArrayList sequential: " + averageSummationTimeSequential(arrayList) +
 				"ms");
-		System.out.println("LinkedList sequential: " + averageSequential(linkedList) +
+		System.out.println("LinkedList sequential: " + averageSummationTimeSequential(linkedList) +
 				"ms");
 	}
 
-	private static long maxParallel(List<Integer> list) {
+	private static long sumParallel(List<Integer> list) {
 		long start = System.currentTimeMillis();
 		list.parallelStream()
 				.mapToInt(Integer::intValue)
@@ -41,7 +33,7 @@ public class ParallelStreams1 {
 		return end - start;
 	}
 
-	private static long maxSequential(List<Integer> list) {
+	private static long sumSequential(List<Integer> list) {
 		long start = System.currentTimeMillis();
 		list.stream()
 				.mapToInt(Integer::intValue)
@@ -50,12 +42,22 @@ public class ParallelStreams1 {
 		return end - start;
 	}
 
-	private static double averageParallel(List<Integer> list) {
-		return LongStream.range(0, 10).map(i -> maxParallel(list)).average().getAsDouble();
+	private static double averageSummationTimeParallel(List<Integer> list) {
+		return LongStream.range(0, 10).map(i -> sumParallel(list)).average().getAsDouble();
 	}
 
-	private static double averageSequential(List<Integer> list) {
-		return LongStream.range(0, 10).map(i -> maxSequential(list)).average().getAsDouble();
+	private static double averageSummationTimeSequential(List<Integer> list) {
+		return LongStream.range(0, 10).map(i -> sumSequential(list)).average().getAsDouble();
+	}
+
+	private static List<Integer> generateRandomIntegers() {
+		Random random = new Random();
+		List<Integer> randomIntegers = IntStream
+				.range(1, 9999999)
+				.map(random::nextInt)
+				.boxed()
+				.collect(Collectors.toList());
+		return randomIntegers;
 	}
 
 }

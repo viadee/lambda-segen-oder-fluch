@@ -27,8 +27,10 @@ public class ParallelStreams2 {
 			} catch (InterruptedException e) {
 				// Nichts tun
 			}
-			System.out.println("Duration " + typ + " " + x + ": Thread " + Thread.currentThread().getName() + " "
-					+ (System.currentTimeMillis() - startSeq) + "ms");
+			System.out.println(
+					"Duration " + typ + " iteration " + x + ": Thread " + Thread.currentThread().getName()
+							+ " finished after "
+							+ (System.currentTimeMillis() - startSeq) + "ms");
 		};
 	}
 
