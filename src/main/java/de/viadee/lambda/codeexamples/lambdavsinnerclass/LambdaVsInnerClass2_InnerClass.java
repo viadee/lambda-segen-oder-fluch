@@ -23,7 +23,8 @@ public class LambdaVsInnerClass2_InnerClass {
 
 		}
 
-		Stream<Integer> filterdByInnerClass = Stream.of(2, 5, 10, 20).filter(new InnerClass(10));
+		Stream<Integer> filterdByInnerClass = Stream.of(2, 5, 10, 20)
+				.filter(new InnerClass(10));
 
 		String innerClass = filterdByInnerClass.map(String::valueOf).collect(Collectors.joining(","));
 
