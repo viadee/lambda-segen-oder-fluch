@@ -28,11 +28,11 @@ public class Streams1 {
 
 	private static void repeatStream(String[] stringArray, int times) {
 		for (int i = 0; i <= times; i++) {
-			findEsStream(stringArray);
+			determineLengthStream(stringArray);
 		}
 	}
 
-	private static Integer findEsStream(String[] stringArray) {
+	private static Integer determineLengthStream(String[] stringArray) {
 		Integer count = Arrays.stream(stringArray)
 				.map(String::length)
 				.reduce(Integer::sum).get();
@@ -41,12 +41,12 @@ public class Streams1 {
 
 	private static void repeatForEach(String[] stringArray, int times) {
 		for (int i = 0; i <= times; i++) {
-			findEsForEach(stringArray);
+			determineLengthForEach(stringArray);
 		}
 
 	}
 
-	private static Integer findEsForEach(String[] stringArray) {
+	private static Integer determineLengthForEach(String[] stringArray) {
 		Integer count = 0;
 		for (String string : stringArray) {
 			count = Integer.sum(count, string.length());
